@@ -1,0 +1,14 @@
+#!/bin/sh
+
+apk update
+apk add \
+    make \
+    g++ \
+    mingw-w64-gcc \
+    i686-mingw-w64-gcc \
+    s6
+
+cd /src
+s6-applyuidgid -u "${PUID}" -g "${PGID}" make linux-release
+s6-applyuidgid -u "${PUID}" -g "${PGID}" make win-i686-release
+s6-applyuidgid -u "${PUID}" -g "${PGID}" make win-x86_64-release
